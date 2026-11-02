@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class RobotPowerUp : MonoBehaviour
 {
-    [SerializeField] private MonoBehaviour sourceBehaviour;      // arrastar o Terminal
-    [SerializeField] private Behaviour[] enableOnPowerUp;        // scripts do O.T a ligar
+    [SerializeField] private MonoBehaviour sourceBehaviour;
+    [SerializeField] private Behaviour[] enableOnPowerUp; //Lista de componentes do O.T                                         
 
     private IActivationSource source;
 
@@ -13,11 +13,11 @@ public class RobotPowerUp : MonoBehaviour
 
     private void Awake()
     {
-        source = sourceBehaviour as IActivationSource;
+        source = sourceBehaviour as IActivationSource; //Referenciar o interface do sourceBehaviour
         if (source == null)
             Debug.LogError($"{name}: a fonte atribuída não implementa IActivationSource.", this);
 
-        foreach (var b in enableOnPowerUp) b.enabled = false;
+        foreach (var b in enableOnPowerUp) b.enabled = false; //desativar todos os componentes do OT
     }
 
     private void OnEnable()
@@ -32,9 +32,10 @@ public class RobotPowerUp : MonoBehaviour
 
     private void OnSourceChanged(bool active)
     {
-        if (!active || IsPowered) return;
-        IsPowered = true;
-        foreach (var b in enableOnPowerUp) b.enabled = true;
-        PoweredOn?.Invoke();
+        if (!active || IsPowered) return; // se não estiver ativo ou estiver ligado não faz nada
+        // Caso contrário...
+        IsPowered = true; // Indica que passou a estar ligado
+        foreach (var b in enableOnPowerUp) b.enabled = true; // Liga os componentes do O.T
+        PoweredOn?.Invoke(); // Diz a todos os que estão à escuta que o OT está ligado
     }
 }

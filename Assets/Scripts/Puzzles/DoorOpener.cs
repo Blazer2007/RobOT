@@ -7,7 +7,8 @@ public class DoorOpener : MonoBehaviour
 
     private void Awake() 
     { 
-        source = sourceBehaviour as IActivationSource; 
+        source = sourceBehaviour as IActivationSource; //Faz-se isto, porque não dá para serializar
+        // interfaces, então serializa-se um monobehaviour e usa-se ele com a interface desejada
     }
     private void OnEnable()
     {
