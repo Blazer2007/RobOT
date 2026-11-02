@@ -10,6 +10,9 @@ public class PlayerMover : MonoBehaviour
 
     private Rigidbody body;
     private Collider bodyCollider;
+    private Collider lastGroundCollider;
+    private IMovingSurface currentSurface;
+    private Vector3 inheritedVelocity;   // velocidade herdada da última superfície em que pisou
     private IMoveInput input;
     private ICameraView cameraView;
 
@@ -46,9 +49,23 @@ public class PlayerMover : MonoBehaviour
         float radius = Mathf.Min(b.extents.x, b.extents.z) * 0.9f;
         float distance = b.extents.y - radius + data.GroundCheckDistance;
 
-        IsGrounded = Physics.SphereCast(b.center, radius, Vector3.down, out RaycastHit hit,
-                         distance, groundLayers, QueryTriggerInteraction.Ignore)
-                     && hit.normal.y >= Mathf.Cos(data.MaxSlopeAngle * Mathf.Deg2Rad);
+        bool hitGround = Physics.SphereCast(b.center, radius, Vector3.down, out RaycastHit hit,
+            distance, groundLayers, QueryTriggerInteraction.Ignore);
+
+        IsGrounded = hitGround && hit.normal.y >= Mathf.Cos(data.MaxSlopeAngle * Mathf.Deg2Rad);
+
+        if (IsGrounded) UpdateSurface(hit.collider);
+    }
+
+    private void UpdateSurface(Collider ground)
+    {
+        if (ground != lastGroundCollider)
+        {
+            lastGroundCollider = ground;
+            currentSurface = ground.GetComponentInParent<IMovingSurface>();
+        }
+
+        inheritedVelocity = currentSurface != null ? currentSurface.Velocity : Vector3.zero;
     }
 
     private Vector3 GetWishDirection()
@@ -61,14 +78,22 @@ public class PlayerMover : MonoBehaviour
     private void ApplyHorizontalMovement(Vector3 wishDir)
     {
         Vector3 velocity = body.linearVelocity;
-        Vector3 horizontal = new Vector3(velocity.x, 0f, velocity.z);
+        Vector3 frame = new Vector3(inheritedVelocity.x, 0f, inheritedVelocity.z);
+
+        // velocidade horizontal relativa à superfície onde está
+        Vector3 horizontal = new Vector3(velocity.x, 0f, velocity.z) - frame;
         Vector3 target = wishDir * data.MoveSpeed;
 
         float rate = wishDir.sqrMagnitude > 0.0001f ? data.Acceleration : data.Deceleration;
         if (!IsGrounded) rate *= data.AirControl;
 
         horizontal = Vector3.MoveTowards(horizontal, target, rate * Time.fixedDeltaTime);
-        body.linearVelocity = new Vector3(horizontal.x, velocity.y, horizontal.z);
+
+        // plataforma a descer: acompanha-a em vez de "flutuar"
+        float y = velocity.y;
+        if (IsGrounded && inheritedVelocity.y < 0f) y = Mathf.Min(y, inheritedVelocity.y);
+
+        body.linearVelocity = new Vector3(horizontal.x + frame.x, y, horizontal.z + frame.z);
     }
 
     private void TryJump()
