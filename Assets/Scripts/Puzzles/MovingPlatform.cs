@@ -6,7 +6,7 @@ public class MovingPlatform : MonoBehaviour, IMovingSurface
     [SerializeField] private Transform[] waypoints;
     [SerializeField] private float speed = 2f;
     [SerializeField] private float waitTime = 1f;
-    [SerializeField] private MonoBehaviour activationSourceBehaviour;
+    [SerializeField] private MonoBehaviour activationSourceBehaviour; // opcional
 
     private Rigidbody body;
     private IActivationSource activationSource;

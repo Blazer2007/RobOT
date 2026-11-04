@@ -14,6 +14,7 @@ public class Terminal : MonoBehaviour, IInteractable, IActivationSource
     public void Interact(GameObject interactor)
     {
         if (!CanInteract(interactor)) return;
+
         IsActive = true;
         ActivationChanged?.Invoke(true);
     }

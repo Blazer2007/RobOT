@@ -4,14 +4,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class PlayerMover : MonoBehaviour
 {
-    [SerializeField] private MovementData data;
+    [SerializeField] private MovementData data; // SO
     [SerializeField] private MonoBehaviour cameraViewSource;
     [SerializeField] private LayerMask groundLayers = ~0;
 
     private Rigidbody body;
     private Collider bodyCollider;
     private Collider lastGroundCollider;
-    private IMovingSurface currentSurface;
+    private IMovingSurface currentSurface; // 
     private Vector3 inheritedVelocity;   // velocidade herdada da última superfície em que pisou
     private IMoveInput input;
     private ICameraView cameraView;
@@ -25,9 +25,9 @@ public class PlayerMover : MonoBehaviour
         input = GetComponent<IMoveInput>();
         cameraView = cameraViewSource != null ? cameraViewSource.GetComponent<ICameraView>() : null;
 
-        if (data == null) Debug.LogError($"{name}: falta atribuir o MovementData.", this);
-        if (input == null) Debug.LogError($"{name}: não há PlayerInput (IMoveInput) neste GameObject.", this);
-        if (cameraView == null) Debug.LogError($"{name}: Camera View Source vazio ou sem ICameraView.", this);
+        //if (data == null) Debug.LogError($"{name}: falta atribuir o MovementData.", this);
+        //if (input == null) Debug.LogError($"{name}: não há PlayerInput (IMoveInput) neste GameObject.", this);
+        //if (cameraView == null) Debug.LogError($"{name}: Camera View Source vazio ou sem ICameraView.", this);
 
         if (data == null || input == null || cameraView == null)
             enabled = false;
@@ -120,6 +120,7 @@ public class PlayerMover : MonoBehaviour
         else if (wishDir.sqrMagnitude > 0.0001f) target = Quaternion.LookRotation(wishDir);
         else return;
 
+        body.MoveRotation(Quaternion.RotateTowards(body.rotation, target, data.TurnSpeed * Time.fixedDeltaTime));
         body.MoveRotation(Quaternion.RotateTowards(body.rotation, target, data.TurnSpeed * Time.fixedDeltaTime));
     }
 }

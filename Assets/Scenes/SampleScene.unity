@@ -958,7 +958,7 @@ Transform:
   m_GameObject: {fileID: 628738011}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.1, y: -0.19999993, z: 0.09999943}
+  m_LocalPosition: {x: -18.1, y: 12.200001, z: 0.09999943}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1160,7 +1160,7 @@ Transform:
   m_GameObject: {fileID: 825959289}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.5, y: -0.19999993, z: 14.2}
+  m_LocalPosition: {x: -8.5, y: 2.6, z: 14.2}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2021,7 +2021,7 @@ Transform:
   m_GameObject: {fileID: 1864477225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.5999999, y: 1.35, z: 5.2999997}
+  m_LocalPosition: {x: 1.3999999, y: 1.35, z: 5.2999997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2040,7 +2040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
   interactRadius: 1
-  minFacingDot: 0.3
+  minFacingDot: 0.8
   interactKey: 101
   interactableLayers:
     serializedVersion: 2
@@ -2481,6 +2481,7 @@ MonoBehaviour:
   - {fileID: 825959290}
   - {fileID: 2146142471}
   - {fileID: 628738012}
+  - {fileID: 2096619207}
   speed: 2
   waitTime: 1
   activationSourceBehaviour: {fileID: 1247867002}
@@ -2721,7 +2722,7 @@ Transform:
   m_GameObject: {fileID: 2146142470}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.1, y: -0.19999993, z: 14.2}
+  m_LocalPosition: {x: -18.1, y: 8.6, z: 14.2}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
