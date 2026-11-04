@@ -39,6 +39,18 @@ novos módulos escondidos pelo caminho, que lhe dão novas capacidades.
 
 Os controlos podem mudar ao longo do desenvolvimento.
 
+## Cheats
+
+| Ação | Controlo |
+| --- | --- |
+| Desbloquear todos os módulos do O.T | F1 |
+| Avançar para o nível seguinte | F2 |
+| Voltar para o nivel anterior | F3 |
+| Invencibilidade a armadilhas | F4 |
+| Voltar ao checkpoint atual | F5 |
+
+Podem ser adicionados mais cheats ao longo do desenvolvimento.
+
 ## Arquitetura
 
 O projeto privilegia uma arquitetura extensível, com:
