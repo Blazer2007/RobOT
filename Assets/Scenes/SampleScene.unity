@@ -249,7 +249,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RobotPowerUp
   sourceBehaviour: {fileID: 1247867002}
-  enableOnPowerUp: []
+  enableOnPowerUp:
+  - {fileID: 271716140}
 --- !u!114 &271716130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,7 +376,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwitchableMoveInput
   playerSource: {fileID: 271716135}
-  aiSource: {fileID: 0}
+  aiSource: {fileID: 271716140}
+--- !u!114 &271716139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271716127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
+--- !u!114 &271716140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271716127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21cbe217faae35c419d71dcd4afeb293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FollowInput
+  target: {fileID: 1864477229}
+  stopDistance: 2
+  slowDownDistance: 1.5
+  repathInterval: 0.25
+  sampleRadius: 2
 --- !u!1 &296364064
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,6 +1838,70 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1391006519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1391006521}
+  - component: {fileID: 1391006520}
+  m_Layer: 0
+  m_Name: NavMesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1391006520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391006519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: e7c87d35e7824ef4aa7c9528757fd2e2, type: 2}
+  m_BuildHeightMesh: 0
+--- !u!4 &1391006521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391006519}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1598815431
 GameObject:
   m_ObjectHideFlags: 0
@@ -2037,6 +2139,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b851cc80e6a385419a8b17d625bae45, type: 3}
       insertIndex: -1
       addedObject: {fileID: 271716138}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b851cc80e6a385419a8b17d625bae45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 271716140}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b851cc80e6a385419a8b17d625bae45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 271716139}
   m_SourcePrefab: {fileID: 100100000, guid: 3b851cc80e6a385419a8b17d625bae45, type: 3}
 --- !u!1 &1785319848
 GameObject:
@@ -2359,6 +2467,7 @@ GameObject:
   - component: {fileID: 1864477232}
   - component: {fileID: 1864477234}
   - component: {fileID: 1864477235}
+  - component: {fileID: 1864477236}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -2566,6 +2675,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SwitchableMoveInput
   playerSource: {fileID: 1864477233}
   aiSource: {fileID: 0}
+--- !u!114 &1864477236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864477225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1940689130
 GameObject:
   m_ObjectHideFlags: 0
@@ -2946,8 +3075,8 @@ MonoBehaviour:
   - {fileID: 2146142471}
   - {fileID: 628738012}
   - {fileID: 2096619207}
-  speed: 2
-  waitTime: 1
+  speed: 1
+  waitTime: 2
   activationSourceBehaviour: {fileID: 1247867002}
 --- !u!54 &2077782317
 Rigidbody:
@@ -3269,3 +3398,4 @@ SceneRoots:
   - {fileID: 1015478063}
   - {fileID: 1839352008}
   - {fileID: 1310005506}
+  - {fileID: 1391006521}
