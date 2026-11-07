@@ -6,6 +6,7 @@ public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private MovementData data; // SO
     [SerializeField] private MonoBehaviour cameraViewSource;
+    [SerializeField] private MonoBehaviour inputSource; // IMoveInput a usar; vazio = o primeiro IMoveInput deste GameObject
     [SerializeField] private LayerMask groundLayers = ~0;
 
     private Rigidbody body;
@@ -15,14 +16,20 @@ public class PlayerMover : MonoBehaviour
     private Vector3 inheritedVelocity;   // velocidade herdada da última superfície em que pisou
     private IMoveInput input;
     private ICameraView cameraView;
+    private IControllable character; // opcional; sem ele a personagem conta sempre como controlada
 
     public bool IsGrounded { get; private set; }
+
+    // Quando não é o jogador a controlar, o input vem da IA (em coordenadas do mundo)
+    // e a câmara não deve mexer nesta personagem
+    private bool IsControlled => character == null || character.IsControlled;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
         bodyCollider = GetComponent<Collider>();
-        input = GetComponent<IMoveInput>();
+        input = inputSource != null ? inputSource as IMoveInput : GetComponent<IMoveInput>();
+        character = GetComponent<IControllable>();
         cameraView = cameraViewSource != null ? cameraViewSource.GetComponent<ICameraView>() : null;
 
         //if (data == null) Debug.LogError($"{name}: falta atribuir o MovementData.", this);
@@ -71,8 +78,8 @@ public class PlayerMover : MonoBehaviour
     private Vector3 GetWishDirection()
     {
         Vector2 move = input.Move;
-        Vector3 local = Vector3.ClampMagnitude(new Vector3(move.x, 0f, move.y), 1f);
-        return cameraView.PlanarRotation * local;
+        Vector3 dir = Vector3.ClampMagnitude(new Vector3(move.x, 0f, move.y), 1f);
+        return IsControlled ? cameraView.PlanarRotation * dir : dir;
     }
 
     private void ApplyHorizontalMovement(Vector3 wishDir)
@@ -116,11 +123,10 @@ public class PlayerMover : MonoBehaviour
     private void Rotate(Vector3 wishDir)
     {
         Quaternion target;
-        if (cameraView.AlignsCharacterToView) target = cameraView.PlanarRotation;
+        if (IsControlled && cameraView.AlignsCharacterToView) target = cameraView.PlanarRotation;
         else if (wishDir.sqrMagnitude > 0.0001f) target = Quaternion.LookRotation(wishDir);
         else return;
 
-        body.MoveRotation(Quaternion.RotateTowards(body.rotation, target, data.TurnSpeed * Time.fixedDeltaTime));
         body.MoveRotation(Quaternion.RotateTowards(body.rotation, target, data.TurnSpeed * Time.fixedDeltaTime));
     }
 }
