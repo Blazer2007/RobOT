@@ -12,11 +12,13 @@ GameObject:
   - component: {fileID: 5245020134862174912}
   - component: {fileID: 4780171592668005267}
   - component: {fileID: 3080824969078213470}
+  - component: {fileID: 2963361078142621640}
   - component: {fileID: 9190190662817490574}
   - component: {fileID: 8320131687247199227}
-  - component: {fileID: 2963361078142621640}
   - component: {fileID: 8685597114891146375}
   - component: {fileID: 8608418959107118588}
+  - component: {fileID: 294644732586769198}
+  - component: {fileID: 8255978087100702500}
   m_Layer: 7
   m_Name: Rob
   m_TagString: Player
@@ -32,7 +34,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5532931502435102370}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.7510302, y: -3.4100003, z: -3.67092}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -119,6 +121,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2963361078142621640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532931502435102370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde5cedfcd8cc974e9ececf2b4e8aa8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInput
+  jumpBufferTime: 0.15
 --- !u!114 &9190190662817490574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,19 +179,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 1
---- !u!114 &2963361078142621640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5532931502435102370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cde5cedfcd8cc974e9ececf2b4e8aa8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInput
-  jumpBufferTime: 0.15
 --- !u!114 &8685597114891146375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMover
   data: {fileID: 11400000, guid: 160351d5ce002c44785e6509e5a55eb2, type: 2}
   cameraViewSource: {fileID: 0}
+  inputSource: {fileID: 2963361078142621640}
   groundLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -206,3 +209,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31995dbd4b61af4479c34fd7b43534a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
+--- !u!114 &294644732586769198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532931502435102370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c9b97a554baf64bba973fe2fa5a2ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControllableCharacter
+  startControlled: 1
+  enableWhileControlled:
+  - {fileID: 9190190662817490574}
+--- !u!114 &8255978087100702500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532931502435102370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec4ae2575fc95f4fba7e1979f98e15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwitchableMoveInput
+  playerSource: {fileID: 2963361078142621640}
+  aiSource: {fileID: 0}
