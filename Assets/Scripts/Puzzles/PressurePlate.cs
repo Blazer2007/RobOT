@@ -29,7 +29,15 @@ public class PressurePlate : MonoBehaviour, IActivationSource
         else occupants[rb] = count - 1;
         Refresh();
     }
+    public void ResetState()
+    {
+        var stale = new List<Rigidbody>();
+        foreach (var rb in occupants.Keys)
+            if (rb == null || !rb.gameObject.activeInHierarchy) stale.Add(rb);
 
+        foreach (var rb in stale) occupants.Remove(rb);
+        Refresh();
+    }
     private void Refresh()
     {
         bool active = occupants.Count > 0;

@@ -7,14 +7,14 @@ public class ResettableTransform : MonoBehaviour, IResetlable
 
     private Rigidbody rb;
     private CharacterController cc;
-    
-    void Awake()
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         cc = GetComponent<CharacterController>();
     }
 
-    void Start()
+    private void Start()
     {
         initialPosition = transform.position;
         initialRotation = transform.rotation;
@@ -23,23 +23,29 @@ public class ResettableTransform : MonoBehaviour, IResetlable
     public void ResetState()
     {
         gameObject.SetActive(true);
-
         MoveTo(initialPosition, initialRotation);
     }
 
-
-    public void MoveTo(Vector3 ps, Quaternion rt)
+    public void MoveTo(Vector3 position, Quaternion rotation)
     {
-        if(cc != null) cc.enabled = false;
+        if (cc != null) cc.enabled = false;
 
-        transform.SetLocalPositionAndRotation(ps, rt);
+        transform.SetPositionAndRotation(position, rotation);   // mundo, tal como foi guardado
 
-        if(cc != null) cc.enabled = true;
+        if (cc != null) cc.enabled = true;
 
-        if(rb != null)
+        if (rb != null)
         {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            rb.position = position;     // atualiza já o corpo físico
+            rb.rotation = rotation;
+
+            if (!rb.isKinematic)        // velocidade só existe em corpos dinâmicos
+            {
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
         }
+
+        Physics.SyncTransforms();       // a física passa a ver já a nova posição
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, IResetlable
 {
     [SerializeField] private MonoBehaviour[] requirementSources;
     [SerializeField] private GroupMode mode = GroupMode.All;
@@ -68,7 +68,15 @@ public class Door : MonoBehaviour
         if (stayOpen && shouldBeOpen) return;
         SetOpen(group.IsMet);
     }
+    public void ResetState()
+    {
+        shouldBeOpen = group.IsMet;   // volta a perguntar aos requisitos, não assume nada
+        Vector3 position = shouldBeOpen ? openPosition : closedPosition;
 
+        transform.position = position;
+        body.position = position;
+        Physics.SyncTransforms();
+    }
     private void SetOpen(bool open)
     {
         if (open == shouldBeOpen) return;

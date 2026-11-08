@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class MovingPlatform : MonoBehaviour, IMovingSurface
+public class MovingPlatform : MonoBehaviour, IMovingSurface, IResetlable
 {
     [SerializeField] private Transform[] waypoints;
     [SerializeField] private float speed = 2f;
@@ -14,6 +14,8 @@ public class MovingPlatform : MonoBehaviour, IMovingSurface
     private int targetIndex = 1;
     private int direction = 1;
     private float waitTimer;
+    private Vector3 startPosition;
+    private Quaternion startRotation;
 
     public Vector3 Velocity { get; private set; }
 
@@ -38,6 +40,23 @@ public class MovingPlatform : MonoBehaviour, IMovingSurface
         // Guardamos as posições uma só vez: se os waypoints forem filhos da plataforma, não a seguem.
         points = new Vector3[waypoints.Length];
         for (int i = 0; i < waypoints.Length; i++) points[i] = waypoints[i].position;
+
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+    }
+    public void ResetState()
+    {
+        // estado da rota: volta aos valores iniciais
+        targetIndex = 1;
+        direction = 1;
+        waitTimer = 0f;
+        Velocity = Vector3.zero;
+
+        // posição
+        transform.SetPositionAndRotation(startPosition, startRotation);
+        body.position = startPosition;
+        body.rotation = startRotation;
+        Physics.SyncTransforms();
     }
 
     private void FixedUpdate()

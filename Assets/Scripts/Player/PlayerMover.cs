@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
-public class PlayerMover : MonoBehaviour
+public class PlayerMover : MonoBehaviour, IResetlable
 {
     [SerializeField] private MovementData data; // SO
     [SerializeField] private MonoBehaviour cameraViewSource;
@@ -122,5 +122,12 @@ public class PlayerMover : MonoBehaviour
 
         body.MoveRotation(Quaternion.RotateTowards(body.rotation, target, data.TurnSpeed * Time.fixedDeltaTime));
         body.MoveRotation(Quaternion.RotateTowards(body.rotation, target, data.TurnSpeed * Time.fixedDeltaTime));
+    }
+    public void ResetState()
+    {
+        inheritedVelocity = Vector3.zero;
+        lastGroundCollider = null;
+        currentSurface = null;
+        IsGrounded = false;
     }
 }
