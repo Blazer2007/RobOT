@@ -30,6 +30,7 @@ public class RobotPowerUp : MonoBehaviour
         if (source != null) source.ActivationChanged -= OnSourceChanged;
     }
 
+    //Ligar o OT
     private void OnSourceChanged(bool active)
     {
         if (!active || IsPowered) return; // se não estiver ativo ou estiver ligado não faz nada
