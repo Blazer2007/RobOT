@@ -78,7 +78,7 @@ public class PlayerMover : MonoBehaviour, IResetlable
     private Vector3 GetWishDirection()
     {
         Vector2 move = input.Move;
-        Vector3 dir = Vector3.ClampMagnitude(new Vector3(move.x, 0f, move.y), 1f);
+        Vector3 dir = Vector3.ClampMagnitude(new Vector3(move.x - body.rotation.x, 0f, move.y), 1f);
         return IsControlled ? cameraView.PlanarRotation * dir : dir;
     }
 

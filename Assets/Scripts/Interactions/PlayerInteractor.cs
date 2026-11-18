@@ -4,6 +4,7 @@ using System;
 public class PlayerInteractor : MonoBehaviour
 {
     [SerializeField] private float interactRadius = 2f; // Raio da esfera de interação com os objetos
+    [SerializeField] [Range(.5f,1f)]private float interactRadiusGroundOffset = .75f; // Raio da esfera de interação com os objetos
     [SerializeField, Range(-1f, 1f)] private float minFacingDot = 0.3f; // Raio de visão do jogador
     [SerializeField] private KeyCode interactKey = KeyCode.E; // Tecla de interação
     [SerializeField] private LayerMask interactableLayers = ~0; // Layers interagiveis, "~" inverte o bit a seguir(~0 = todas)
@@ -28,7 +29,7 @@ public class PlayerInteractor : MonoBehaviour
     private IInteractable FindBestTarget() //Encontrar o melhor candidato de interação
     {
         int count = Physics.OverlapSphereNonAlloc(
-            transform.position, interactRadius, buffer,
+            transform.position + new Vector3(0,interactRadiusGroundOffset,0), interactRadius, buffer,
             interactableLayers, QueryTriggerInteraction.Collide); // Guarda quantos colliders estão dentro do raio de interação
 
         IInteractable best = null; // Iniciar a variavel do melhor candidato de interação com null
@@ -79,6 +80,6 @@ public class PlayerInteractor : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, interactRadius);
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0, interactRadiusGroundOffset, 0), interactRadius);
     }
 }
