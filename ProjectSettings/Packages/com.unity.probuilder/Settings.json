@@ -99,7 +99,7 @@
             {
                 "type": "UnityEngine.ProBuilder.SelectMode, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "s_SelectMode",
-                "value": "{\"m_Value\":1}"
+                "value": "{\"m_Value\":4}"
             },
             {
                 "type": "UnityEngine.ProBuilder.LogLevel, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
@@ -139,7 +139,7 @@
             {
                 "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "ShapeBuilder.LastSize.Cube",
-                "value": "{\"m_Value\":{\"x\":87.9000015258789,\"y\":8.200000762939454,\"z\":71.0}}"
+                "value": "{\"m_Value\":{\"x\":13.300003051757813,\"y\":6.900000095367432,\"z\":14.800003051757813}}"
             },
             {
                 "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
@@ -224,6 +224,11 @@
             {
                 "type": "UnityEditor.ProBuilder.Actions.OffsetElements+CoordinateSpace, Unity.ProBuilder.Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "MoveElements.s_CoordinateSpace",
+                "value": "{\"m_Value\":0}"
+            },
+            {
+                "type": "UnityEditor.ProBuilder.Actions.DetachFaces+DetachSetting, Unity.ProBuilder.Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                "key": "DetachFaces.target",
                 "value": "{\"m_Value\":0}"
             }
         ]

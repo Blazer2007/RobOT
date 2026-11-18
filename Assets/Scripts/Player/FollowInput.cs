@@ -14,11 +14,14 @@ public class FollowInput : MonoBehaviour, IMoveInput
     [SerializeField] private float sampleRadius = 2f;       // distância máxima para "encaixar" uma posição na NavMesh
     [SerializeField] private KeyCode toggleKey = KeyCode.F; // liga/desliga o seguimento
     [SerializeField] private bool startFollowing = true;
+    [SerializeField] private MonoBehaviour sourceBehaviour;
 
     private NavMeshPath path;
     private int corner;      // próximo canto do caminho a alcançar
     private float nextRepathTime;
+    private bool canFollow;
     private IControllable character; // para saber se o O.T está a ser controlado
+    private IActivationSource source; //Interface da ativação do OT
 
     public Vector2 Move { get; private set; }
     public bool ConsumeJump() => false; // por agora o O.T não salta sozinho
@@ -28,15 +31,30 @@ public class FollowInput : MonoBehaviour, IMoveInput
 
     private void Awake()
     {
+        source = sourceBehaviour as IActivationSource;
+        if (source == null)
+            Debug.LogError($"{name}: a fonte atribuída não implementa IActivationSource.", this);
+
         path = new NavMeshPath();
         character = GetComponent<IControllable>();
         IsFollowing = startFollowing;
     }
-
-    private void OnDisable() => Move = Vector2.zero;
-
+    private void OnEnable()
+    {
+        source.ActivationChanged += AllowMovingState;
+    }
+    private void OnDisable() 
+    {
+        source.ActivationChanged -= AllowMovingState;
+    }
+    
+    private void AllowMovingState(bool Activated) 
+    {
+        canFollow = Activated;
+    }
     public void SetFollowing(bool follow)
     {
+        if (!canFollow && !startFollowing) return;
         if (follow == IsFollowing) return;
         IsFollowing = follow;
         if (!follow) Move = Vector2.zero;
