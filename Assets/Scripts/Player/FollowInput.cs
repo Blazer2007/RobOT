@@ -14,6 +14,7 @@ public class FollowInput : MonoBehaviour, IMoveInput
     [SerializeField] private float sampleRadius = 2f;       // distância máxima para "encaixar" uma posição na NavMesh
     [SerializeField] private KeyCode toggleKey = KeyCode.F; // liga/desliga o seguimento
     [SerializeField] private bool startFollowing = true;
+    [Tooltip("Monobehaviour that activates OT")]
     [SerializeField] private MonoBehaviour sourceBehaviour;
 
     private NavMeshPath path;

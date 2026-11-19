@@ -5,11 +5,16 @@ using UnityEngine;
 public class PressurePlate : MonoBehaviour, IActivationSource
 {
     [SerializeField] private LayerMask activators = ~0;
+    private Animator animator;
 
     private readonly Dictionary<Rigidbody, int> occupants = new Dictionary<Rigidbody, int>();
 
     public bool IsActive { get; private set; }
     public event Action<bool> ActivationChanged;
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -44,5 +49,8 @@ public class PressurePlate : MonoBehaviour, IActivationSource
         if (active == IsActive) return;
         IsActive = active;
         ActivationChanged?.Invoke(active);
+        UpdateAnim(IsActive);
     }
+    private void UpdateAnim(bool active) => animator.SetBool("Activated", active);
+
 }

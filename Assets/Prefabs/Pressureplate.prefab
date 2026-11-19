@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 5817991576260332887}
   - component: {fileID: 7758851093334456579}
   - component: {fileID: 3359037004842671658}
+  - component: {fileID: 4085585341488494588}
   m_Layer: 0
   m_Name: Pressureplate
   m_TagString: Untagged
@@ -188,3 +189,25 @@ MonoBehaviour:
   activators:
     serializedVersion: 2
     m_Bits: 256
+--- !u!95 &4085585341488494588
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5682541247109217425}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 31b251d48bc4aa64ca3b4882a41d0a96, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
