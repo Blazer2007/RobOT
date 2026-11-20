@@ -23,4 +23,9 @@ public class PlayerInput : MonoBehaviour, IMoveInput
         lastJumpPressTime = float.NegativeInfinity;
         return true;
     }
+    private void OnDisable()
+    {
+        Move = Vector2.zero;
+        lastJumpPressTime = float.NegativeInfinity;
+    }
 }

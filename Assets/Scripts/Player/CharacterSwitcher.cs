@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 // Troca a personagem controlada (Rob <-> O.T) com uma tecla
@@ -59,7 +60,14 @@ public class CharacterSwitcher : MonoBehaviour
         currentIndex = index;
         characters[index].GainControl();
 
-        if (cameraController != null) cameraController.SetTarget(characters[index].transform);
+        if (cameraController != null) 
+        {
+            GameObject head = characters[index].GetComponentInChildren<Transform>().Find("Head").gameObject;
+            if (head == null)
+                cameraController.SetTarget(characters[index].transform);
+            
+                cameraController.SetTarget(head.transform);
+        }
         Debug.Log($"{name}: a controlar {characters[index].name}.", this);
     }
 

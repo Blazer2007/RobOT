@@ -3,17 +3,15 @@ using UnityEngine;
 
 public class Lever : MonoBehaviour, IInteractable, IActivationSource, IResetlable
 {
-    [SerializeField] private string promptOff = "E - Ligar alavanca";
-    [SerializeField] private string promptOn = "E - Desligar alavanca";
+    [SerializeField] private string promptOff = "E - Ligar alavanca"; // prompt para ligar/ativar
+    [SerializeField] private string promptOn = "E - Desligar alavanca"; // prompt para desligar/desativar
     [SerializeField] private bool canToggleOff = true;   // false = liga só uma vez
-    [SerializeField] private bool startActive;
-    [SerializeField] private Transform handle;           // opcional: pivô visual
-    [SerializeField] private float handleAngle = 40f;
-    private Animator handleAnimator;
-    public bool IsActive { get; private set; }
-    public event Action<bool> ActivationChanged;
+    [SerializeField] private bool startActive; // Começa já ativa?
+    private Animator handleAnimator; // Animação da alavanca
+    public bool IsActive { get; private set; } // Está ativa?
+    public event Action<bool> ActivationChanged; // A ativação mudou
 
-    public string Prompt => IsActive ? promptOn : promptOff;
+    public string Prompt => IsActive ? promptOn : promptOff; // Troca
 
     private void Awake()
     {
@@ -42,8 +40,6 @@ public class Lever : MonoBehaviour, IInteractable, IActivationSource, IResetlabl
 
     private void UpdateVisual()
     {
-        if (handle != null && !handleAnimator)
-            handle.localRotation = Quaternion.Euler(IsActive ? handleAngle : -handleAngle, 0f, 0f);
         if(handleAnimator != null) 
         {
             handleAnimator.SetBool("Activated", IsActive);

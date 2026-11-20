@@ -4,7 +4,7 @@ using System;
 public class PlayerInteractor : MonoBehaviour
 {
     [SerializeField] private float interactRadius = 2f; // Raio da esfera de interação com os objetos
-    [SerializeField] [Range(.5f,1f)]private float interactRadiusGroundOffset = .75f; // Raio da esfera de interação com os objetos
+    [SerializeField] [Range(0f,1f)] private float interactRadiusGroundOffset = .75f; // Raio da esfera de interação com os objetos
     [SerializeField, Range(-1f, 1f)] private float minFacingDot = 0.3f; // Raio de visão do jogador
     [SerializeField] private KeyCode interactKey = KeyCode.E; // Tecla de interação
     [SerializeField] private LayerMask interactableLayers = ~0; // Layers interagiveis, "~" inverte o bit a seguir(~0 = todas)

@@ -66,6 +66,9 @@ PrefabInstance:
       addedObject: {fileID: 150719104466391431}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a9baaa9f4377b644c9339dfde173df84, type: 3}
       insertIndex: -1
+      addedObject: {fileID: -3979424745474892158}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a9baaa9f4377b644c9339dfde173df84, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 7001885413151338291}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a9baaa9f4377b644c9339dfde173df84, type: 3}
       insertIndex: -1
@@ -122,6 +125,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.7, z: 0.5}
   m_Center: {x: 0, y: 0.025, z: 0.25}
+--- !u!114 &-3979424745474892158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3109384934355508881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef6914085bc8cb84d9baafcf01c57c63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActivationRequirement
+  sourceBehaviour: {fileID: 0}
+  invert: 0
 --- !u!114 &7001885413151338291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +156,6 @@ MonoBehaviour:
   canToggleOff: 1
   startActive: 0
   handle: {fileID: 0}
-  handleAnim: {fileID: 0}
   handleAngle: 40
 --- !u!114 &3585145354706700450
 MonoBehaviour:

@@ -32,10 +32,6 @@ public class PlayerMover : MonoBehaviour, IResetlable
         character = GetComponent<IControllable>();
         cameraView = cameraViewSource != null ? cameraViewSource.GetComponent<ICameraView>() : null;
 
-        //if (data == null) Debug.LogError($"{name}: falta atribuir o MovementData.", this);
-        //if (input == null) Debug.LogError($"{name}: não há PlayerInput (IMoveInput) neste GameObject.", this);
-        //if (cameraView == null) Debug.LogError($"{name}: Camera View Source vazio ou sem ICameraView.", this);
-
         if (data == null || input == null || cameraView == null)
             enabled = false;
     }
@@ -78,7 +74,7 @@ public class PlayerMover : MonoBehaviour, IResetlable
     private Vector3 GetWishDirection()
     {
         Vector2 move = input.Move;
-        Vector3 dir = Vector3.ClampMagnitude(new Vector3(move.x - body.rotation.x, 0f, move.y), 1f);
+        Vector3 dir = Vector3.ClampMagnitude(new Vector3(move.x, 0f, move.y), 1f);
         return IsControlled ? cameraView.PlanarRotation * dir : dir;
     }
 
@@ -94,6 +90,7 @@ public class PlayerMover : MonoBehaviour, IResetlable
         float rate = wishDir.sqrMagnitude > 0.0001f ? data.Acceleration : data.Deceleration;
         if (!IsGrounded) rate *= data.AirControl;
 
+        if (!IsControlled) return;
         horizontal = Vector3.MoveTowards(horizontal, target, rate * Time.fixedDeltaTime);
 
         // plataforma a descer: acompanha-a em vez de "flutuar"
