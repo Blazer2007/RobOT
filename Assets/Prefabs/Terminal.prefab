@@ -70,6 +70,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41c66472fe67e6841b65b239096ae731, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7249119299939847417}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41c66472fe67e6841b65b239096ae731, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4302925856107250901}
   m_SourcePrefab: {fileID: 100100000, guid: 41c66472fe67e6841b65b239096ae731, type: 3}
 --- !u!1 &3892993627653992310 stripped
 GameObject:
@@ -134,3 +137,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64380c54e02f1fb48b9f59a829ed9605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleResetTarget
+--- !u!65 &4302925856107250901
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3892993627653992310}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.45, y: 1.5, z: 1.4}
+  m_Center: {x: 0, y: 0.7, z: 0.2}

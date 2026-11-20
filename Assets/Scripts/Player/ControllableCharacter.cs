@@ -7,6 +7,7 @@ public class ControllableCharacter : MonoBehaviour, IControllable
 {
     [SerializeField] private bool startControlled; // true no Rob, false no O.T
     [SerializeField] private Behaviour[] enableWhileControlled; // ex.: PlayerInteractor
+    public Transform Head; // Cabeça do personagem
 
     public bool IsControlled { get; private set; }
     public event Action<bool> ControlChanged;

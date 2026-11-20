@@ -56,11 +56,16 @@ public class FollowInput : MonoBehaviour, IMoveInput
     public void SetFollowing(bool follow)
     {
         if (!canFollow && !startFollowing) return;
-        if (follow == IsFollowing) return;
-        IsFollowing = follow;
-        if (!follow) Move = Vector2.zero;
-        Debug.Log($"{name}: {(follow ? "a seguir" : "fica aqui")}.", this);
-        FollowingChanged?.Invoke(follow);
+        if (canFollow || startFollowing) 
+        {
+            canFollow = true;
+            if (follow == IsFollowing) return;
+            IsFollowing = follow;
+            if (!follow) Move = Vector2.zero;
+            Debug.Log($"{name}: {(follow ? "a seguir" : "fica aqui")}.", this);
+            FollowingChanged?.Invoke(follow); 
+        }
+        
     }
 
     private void Update()

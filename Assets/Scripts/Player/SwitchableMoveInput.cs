@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 // IMoveInput que escolhe a fonte de input conforme a personagem está ou não a ser controlada:
 //  - controlada     -> playerSource (teclado, PlayerInput)
@@ -8,13 +9,12 @@ public class SwitchableMoveInput : MonoBehaviour, IMoveInput
 {
     [SerializeField] private MonoBehaviour playerSource; // PlayerInput
     [SerializeField] private MonoBehaviour aiSource;     // opcional
-
     private IControllable character;
     private IMoveInput player;
     private IMoveInput ai;
 
     private IMoveInput Current => character.IsControlled ? player : ai;
-
+    Rigidbody body; 
     public Vector2 Move => Current != null ? Current.Move : Vector2.zero;
     public bool ConsumeJump() => Current != null && Current.ConsumeJump();
 
@@ -24,7 +24,6 @@ public class SwitchableMoveInput : MonoBehaviour, IMoveInput
         player = AsInput(playerSource, nameof(playerSource));
         ai = AsInput(aiSource, nameof(aiSource));
     }
-
     private IMoveInput AsInput(MonoBehaviour source, string field)
     {
         if (source == null) return null;

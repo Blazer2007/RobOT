@@ -90,7 +90,7 @@ public class PlayerMover : MonoBehaviour, IResetlable
         float rate = wishDir.sqrMagnitude > 0.0001f ? data.Acceleration : data.Deceleration;
         if (!IsGrounded) rate *= data.AirControl;
 
-        if (!IsControlled) return;
+        //if (!IsControlled) return;
         horizontal = Vector3.MoveTowards(horizontal, target, rate * Time.fixedDeltaTime);
 
         // plataforma a descer: acompanha-a em vez de "flutuar"

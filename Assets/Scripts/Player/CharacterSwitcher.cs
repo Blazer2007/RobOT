@@ -62,11 +62,7 @@ public class CharacterSwitcher : MonoBehaviour
 
         if (cameraController != null) 
         {
-            GameObject head = characters[index].GetComponentInChildren<Transform>().Find("Head").gameObject;
-            if (head == null)
-                cameraController.SetTarget(characters[index].transform);
-            
-                cameraController.SetTarget(head.transform);
+            cameraController.SetTarget(characters[index].Head != null ? characters[index].Head.transform : characters[index].transform);
         }
         Debug.Log($"{name}: a controlar {characters[index].name}.", this);
     }
