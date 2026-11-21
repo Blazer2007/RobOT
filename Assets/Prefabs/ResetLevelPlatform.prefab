@@ -6419,11 +6419,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1914332433697312912, guid: 83758b82f77f59a4295fc2747c2f966e, type: 3}
       propertyPath: m_Size.y
-      value: 0.26228428
+      value: 0.17189026
       objectReference: {fileID: 0}
     - target: {fileID: 1914332433697312912, guid: 83758b82f77f59a4295fc2747c2f966e, type: 3}
       propertyPath: m_Center.y
-      value: 0.0077137947
+      value: -0.037483215
       objectReference: {fileID: 0}
     - target: {fileID: 5014654301591791147, guid: 83758b82f77f59a4295fc2747c2f966e, type: 3}
       propertyPath: m_LocalPosition.x
