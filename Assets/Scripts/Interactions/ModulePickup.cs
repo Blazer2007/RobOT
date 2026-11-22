@@ -1,10 +1,10 @@
-// ModulePickup.cs
 using UnityEngine;
-
-// O módulo como objeto físico no mundo. É o MESMO objeto desde a sala até ao inventário:
-// apanhar = esconder, largar = reaparecer no chão. Por isso o inventário guarda o
-// próprio ModulePickup (implementa IModuleInfo) e o reset sabe sempre qual é o original.
-// O Collider tem de estar neste mesmo GameObject (o PlayerInteractor procura aqui).
+/// <summary>
+/// O módulo como objeto físico no mundo. É o MESMO objeto desde a sala até ao inventário:
+/// apanhar = esconder, largar = reaparecer no chão. Por isso o inventário guarda o
+/// próprio ModulePickup (implementa IModuleInfo) e o reset sabe sempre qual é o original.
+/// O Collider tem de estar neste mesmo GameObject (o PlayerInteractor procura aqui).
+/// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class ModulePickup : MonoBehaviour, IInteractable, IModuleInfo, IResetlable
 {

@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 8608418959107118588}
   - component: {fileID: 294644732586769198}
   - component: {fileID: 8255978087100702500}
+  - component: {fileID: 259822283970189312}
   m_Layer: 7
   m_Name: Rob
   m_TagString: Player
@@ -233,7 +234,7 @@ MonoBehaviour:
   inputSource: {fileID: 2963361078142621640}
   groundLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 383
 --- !u!114 &8608418959107118588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,7 +262,9 @@ MonoBehaviour:
   startControlled: 1
   enableWhileControlled:
   - {fileID: 9190190662817490574}
-  - {fileID: 8685597114891146375}
+  - {fileID: 2963361078142621640}
+  - {fileID: 259822283970189312}
+  Head: {fileID: 7415455315589404482}
 --- !u!114 &8255978087100702500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +279,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SwitchableMoveInput
   playerSource: {fileID: 2963361078142621640}
   aiSource: {fileID: 0}
+--- !u!114 &259822283970189312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532931502435102370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3b94661393620a479785d69e7c4bfdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ModuleController
+  aimCamera: {fileID: 0}
+  abilityRoot: {fileID: 0}
+  dropDistance: 1.2
+  dropHeight: 0.5
+  holdToDropExtraTime: 0.6
+  dropKey: 113
+  slot1Key: 49
+  slot2Key: 50
 --- !u!1 &8536012149131171657
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,7 +324,7 @@ Transform:
   m_GameObject: {fileID: 8536012149131171657}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

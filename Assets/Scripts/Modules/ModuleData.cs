@@ -21,6 +21,7 @@ public class ModuleData : ScriptableObject, IModuleInfo
     [field: SerializeField] public float Range { get; private set; } = 5f;
     [field: SerializeField] public float Force { get; private set; } = 10f;
     [field: SerializeField] public float Cooldown { get; private set; } = 0f;
+    [field: SerializeField] public float MaxMass { get; private set; } = 10f; // massa máxima que consegue levantar (braço)
 
     // Prefab com o componente IRobotAbility; o ModuleController instancia-o ao equipar.
     // Pode ficar vazio (o módulo apanha-se e larga-se, mas não faz nada).

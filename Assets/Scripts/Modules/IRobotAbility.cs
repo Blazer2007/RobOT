@@ -1,9 +1,10 @@
-// IRobotAbility.cs
 using UnityEngine;
+/// <summary>
+/// Contexto que o ModuleController entrega às habilidades.
+/// AimRay é calculado sempre que é lido, por isso uma habilidade que fique ativa
+/// (ex.: braço a arrastar uma caixa) tem sempre a mira atualizada (centro do ecrã).
+/// </summary>
 
-// Contexto que o ModuleController entrega às habilidades.
-// AimRay é calculado sempre que é lido, por isso uma habilidade que fique ativa
-// (ex.: braço a arrastar uma caixa) tem sempre a mira atualizada (centro do ecrã).
 public class AbilityContext
 {
     public GameObject User { get; }

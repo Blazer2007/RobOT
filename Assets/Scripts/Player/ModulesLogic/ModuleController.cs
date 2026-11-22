@@ -1,10 +1,11 @@
-// ModuleController.cs
 using System.Collections.Generic;
 using UnityEngine;
+/// <summary>
+/// Liga o input e o mundo ao ModuleInventory. Uma instância por personagem (Rob e O.T).
+/// Pôr em ControllableCharacter.enableWhileControlled, como o PlayerInteractor.
+/// Só conhece IModuleInfo e IRobotAbility: não sabe que módulos existem.
+/// </summary>
 
-// Liga o input e o mundo ao ModuleInventory. Uma instância por personagem (Rob e O.T).
-// Pôr em ControllableCharacter.enableWhileControlled, como o PlayerInteractor.
-// Só conhece IModuleInfo e IRobotAbility: não sabe que módulos existem.
 public class ModuleController : MonoBehaviour
 {
     [SerializeField] private Camera aimCamera;          // vazio = Camera.main
@@ -58,6 +59,21 @@ public class ModuleController : MonoBehaviour
         HandleSelectionInput();
         HandleUseInput();
         HandleDropInput();
+    }
+
+    // ---------- Consultas para a UI (a mira) ----------
+
+    public bool HasSelectedAbility =>
+        Inventory.SelectedMain != null && abilities.ContainsKey(Inventory.SelectedMain);
+
+    public AbilityTargetState GetSelectedTargetState()
+    {
+        if (!HasSelectedAbility) return AbilityTargetState.None;
+
+        IRobotAbility ability = abilities[Inventory.SelectedMain];
+        if (ability is ITargetFeedback feedback) return feedback.GetTargetState(context);
+
+        return ability.CanUse(context) ? AbilityTargetState.Available : AbilityTargetState.None;
     }
 
     // Chamado pelo ModulePickup quando o jogador carrega em E
