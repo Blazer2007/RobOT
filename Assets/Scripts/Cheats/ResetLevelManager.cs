@@ -41,11 +41,16 @@ public class ResetLevelManager : MonoBehaviour
                 r.ResetState();
         }
 
-        rob.transform.SetPositionAndRotation(spawnRob.position, spawnRob.rotation);
-        ot.transform.SetPositionAndRotation(spawnOt.position, spawnOt.rotation);
+       SpawnPlayers();
 
         OnLevelReset?.Invoke();
 
+    }
+
+    public void SpawnPlayers()
+    {
+        rob.MoveTo(spawnRob.position, spawnRob.rotation);
+        ot.MoveTo(spawnOt.position, spawnOt.rotation);
     }
 
    
