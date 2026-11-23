@@ -21,7 +21,6 @@ public class FollowInput : MonoBehaviour, IMoveInput
     private int corner;      // próximo canto do caminho a alcançar
     private float nextRepathTime;
     private bool canFollow;
-    private IControllable character; // para saber se o O.T está a ser controlado
     private IActivationSource source; //Interface da ativação do OT
 
     public Vector2 Move { get; private set; }
@@ -37,42 +36,37 @@ public class FollowInput : MonoBehaviour, IMoveInput
             Debug.LogError($"{name}: a fonte atribuída não implementa IActivationSource.", this);
 
         path = new NavMeshPath();
-        character = GetComponent<IControllable>();
         IsFollowing = startFollowing;
     }
     private void OnEnable()
     {
-        source.ActivationChanged += AllowMovingState;
+        if (source != null) source.ActivationChanged += AllowMovingState;
     }
-    private void OnDisable() 
+    private void OnDisable()
     {
-        source.ActivationChanged -= AllowMovingState;
+        if (source != null) source.ActivationChanged -= AllowMovingState;
     }
-    
-    private void AllowMovingState(bool Activated) 
+
+    private void AllowMovingState(bool Activated)
     {
         canFollow = Activated;
+        if (Activated) SetFollowing(true); // assim que o O.T é ligado começa logo a seguir o Rob
     }
     public void SetFollowing(bool follow)
     {
-        if (!canFollow && !startFollowing) return;
-        if (canFollow || startFollowing) 
-        {
-            canFollow = true;
-            if (follow == IsFollowing) return;
-            IsFollowing = follow;
-            if (!follow) Move = Vector2.zero;
-            Debug.Log($"{name}: {(follow ? "a seguir" : "fica aqui")}.", this);
-            FollowingChanged?.Invoke(follow); 
-        }
-        
+        if (!canFollow && !startFollowing) return; // ainda não foi ligado
+        canFollow = true;
+        if (follow == IsFollowing) return;
+        IsFollowing = follow;
+        if (!follow) Move = Vector2.zero;
+        Debug.Log($"{name}: {(follow ? "a seguir" : "fica aqui")}.", this);
+        FollowingChanged?.Invoke(follow);
     }
 
     private void Update()
     {
-        // A tecla só conta quando estás a jogar com a outra personagem (é uma ordem do Rob ao O.T)
-        bool controlled = character != null && character.IsControlled;
-        if (!controlled && Input.GetKeyDown(toggleKey)) SetFollowing(!IsFollowing);
+        // F funciona com qualquer personagem: se estiveres com o O.T, ele fica/segue quando voltares ao Rob
+        if (Input.GetKeyDown(toggleKey)) SetFollowing(!IsFollowing);
 
         if (!IsFollowing || target == null) { Move = Vector2.zero; return; }
 
