@@ -7,8 +7,13 @@ public class MovingPlatform : MonoBehaviour, IMovingSurface, IResetlable
     [SerializeField] private float speed = 2f;
     [SerializeField] private float waitTime = 1f;
     [SerializeField] private MonoBehaviour activationSourceBehaviour; // opcional
+    [Tooltip("Modo elevador: com a fonte ativa vai até ao último waypoint e fica lá; " +
+             "sem ela volta ao primeiro. Desligado = vai e volta (ping-pong) enquanto a fonte estiver ativa.")]
+    [SerializeField] private bool returnWhenInactive;
 
     private Rigidbody body;
+    private int holdFrom; // modo elevador: waypoint de onde saiu
+    private int holdTo;   // modo elevador: waypoint para onde vai
     private IActivationSource activationSource;
     private Vector3[] points;
     private int targetIndex = 1;
@@ -50,6 +55,7 @@ public class MovingPlatform : MonoBehaviour, IMovingSurface, IResetlable
         targetIndex = 1;
         direction = 1;
         waitTimer = 0f;
+        holdFrom = holdTo = 0;
         Velocity = Vector3.zero;
 
         // posição
@@ -61,7 +67,13 @@ public class MovingPlatform : MonoBehaviour, IMovingSurface, IResetlable
 
     private void FixedUpdate()
     {
-        if (!IsRunning) 
+        if (returnWhenInactive)
+        {
+            ElevatorStep();
+            return;
+        }
+
+        if (!IsRunning)
         { 
             Velocity = Vector3.zero; 
             return; 
@@ -81,6 +93,32 @@ public class MovingPlatform : MonoBehaviour, IMovingSurface, IResetlable
         body.MovePosition(next);
 
         if (Vector3.Distance(next, points[targetIndex]) < 0.001f) AdvanceTarget();
+    }
+
+    // Modo elevador: fonte ativa -> sobe até ao último waypoint; inativa -> desce até ao primeiro
+    private void ElevatorStep()
+    {
+        int goal = IsRunning ? points.Length - 1 : 0;
+
+        // Se o objetivo mudou a meio do caminho, dá meia-volta no mesmo troço
+        if (holdTo != holdFrom && Mathf.Abs(goal - holdFrom) < Mathf.Abs(goal - holdTo))
+            (holdFrom, holdTo) = (holdTo, holdFrom);
+
+        if ((body.position - points[holdTo]).sqrMagnitude < 0.000001f)
+        {
+            holdFrom = holdTo;
+            if (holdTo == goal)
+            {
+                Velocity = Vector3.zero; // chegou: fica parado
+                return;
+            }
+            holdTo += goal > holdTo ? 1 : -1;
+        }
+
+        Vector3 current = body.position;
+        Vector3 next = Vector3.MoveTowards(current, points[holdTo], speed * Time.fixedDeltaTime);
+        Velocity = (next - current) / Time.fixedDeltaTime;
+        body.MovePosition(next);
     }
 
     private void AdvanceTarget()
