@@ -1243,7 +1243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rotator
   _amp: 5
-  _freq: 4.01
+  _freq: 1.5
 --- !u!114 &1353260191
 MonoBehaviour:
   m_ObjectHideFlags: 0
