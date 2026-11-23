@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: WoodBox
   m_EditorClassIdentifier: Assembly-CSharp::ObjectMaterial
   <DisplayName>k__BackingField: Wood
-  <Density>k__BackingField: 40
+  <Density>k__BackingField: 5
   <IsMagnetic>k__BackingField: 0
+  <PushableByPlayer>k__BackingField: 1
   <MaterialVisual>k__BackingField: {fileID: 2100000, guid: 302dce0eeedf5e14597cbfe02e2aca04, type: 2}

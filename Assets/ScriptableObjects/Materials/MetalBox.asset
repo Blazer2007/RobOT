@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MetalBox
   m_EditorClassIdentifier: Assembly-CSharp::ObjectMaterial
   <DisplayName>k__BackingField: Metal
-  <Density>k__BackingField: 100
+  <Density>k__BackingField: 10
   <IsMagnetic>k__BackingField: 1
+  <PushableByPlayer>k__BackingField: 0
   <MaterialVisual>k__BackingField: {fileID: 2100000, guid: b115d80a0c2024049a75bbbe7c52347a, type: 2}

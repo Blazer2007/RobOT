@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CardboardBox
   m_EditorClassIdentifier: Assembly-CSharp::ObjectMaterial
   <DisplayName>k__BackingField: Cardboard
-  <Density>k__BackingField: 10
+  <Density>k__BackingField: 2
   <IsMagnetic>k__BackingField: 0
+  <PushableByPlayer>k__BackingField: 1
   <MaterialVisual>k__BackingField: {fileID: 2100000, guid: 7769d74ab4b799341a112138fda7beb5, type: 2}

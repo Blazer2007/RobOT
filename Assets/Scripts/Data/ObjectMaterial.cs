@@ -1,11 +1,10 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 /// <summary>
 /// Descreve um material (cartão, madeira, ferro...). Só dados de configuração:
 /// a massa de cada objeto é calculada por instância (densidade x volume) no MaterialObject,
 /// por isso este asset, partilhado por todas as caixas, nunca é alterado em runtime.
-/// </summary> 
+/// </summary>
 [CreateAssetMenu(menuName = "RobOT/Object Material", fileName = "ObjectMaterial")]
 public class ObjectMaterial : ScriptableObject
 {
@@ -17,5 +16,10 @@ public class ObjectMaterial : ScriptableObject
 
     // Só materiais magnéticos são atraídos pelo braço magnético
     [field: SerializeField] public bool IsMagnetic { get; private set; } = true;
+
+    // Se estiver desligado, o jogador não consegue empurrar o objeto (ex.: ferro).
+    // Só o braço magnético o move; sem ele, o objeto só cai na vertical.
+    [field: SerializeField] public bool PushableByPlayer { get; private set; } = true;
+
     [field: SerializeField] public Material MaterialVisual { get; private set; }
 }
