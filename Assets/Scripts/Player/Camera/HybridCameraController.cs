@@ -38,6 +38,7 @@ public class HybridCameraController : MonoBehaviour, ICameraView
 
     private void LateUpdate()
     {
+        if (Time.timeScale == 0f) return;
         if (target == null) return;
 
         if (Input.GetKeyDown(toggleKey))
