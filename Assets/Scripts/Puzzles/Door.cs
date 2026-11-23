@@ -1,4 +1,3 @@
-// Door.cs
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +16,7 @@ public class Door : MonoBehaviour, IResetlable
     private Vector3 closedPosition; // Posição da porta fechada
     private Vector3 openPosition; // Posição da porta aberta
     private bool shouldBeOpen; // Se a porta deve estar fechada ou não
+    private Animator animator;
 
     public bool IsOpen => shouldBeOpen; // A condição da porta estar aberta depende da condição da porta poder estar aberta
     // Esta função pega no valor de "shouldBeOpen" e atribui-o a "IsOpen"
@@ -30,6 +30,7 @@ public class Door : MonoBehaviour, IResetlable
         body.isKinematic = true; // Garante que é kinematic(forças não afetam a porta, só se mexe com código)
         body.interpolation = RigidbodyInterpolation.Interpolate; // garante que faz interpolate(suaviza o movimento com
                                                                  // cálculos de posições anteriores)
+        animator = GetComponent<Animator>();
 
         closedPosition = transform.position; // Armazena o valor da posição da porta fechada como
                                              // o valor da posição inicial da mesma
@@ -97,6 +98,7 @@ public class Door : MonoBehaviour, IResetlable
     {
         if (open == shouldBeOpen) return; // Se o parametro passado for igual ao shouldBeOpen não faz nada
         shouldBeOpen = open; // caso contrário o valor do shouldBeOpen passa a ser o valor do parametro
+        animator.SetBool("IsOpen", open);
         OpenStateChanged?.Invoke(open); // Indica a mudança da abertura da porta
     }
 
