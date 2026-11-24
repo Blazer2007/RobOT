@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Door : MonoBehaviour, IResetlable
@@ -25,8 +26,7 @@ public class Door : MonoBehaviour, IResetlable
     private void Awake()
     {
         body = GetComponent<Rigidbody>(); // Pega no Rigidbody da porta
-        if(TryGetComponent<ElevatorMover>(out ElevatorMover elevator) != true)
-            body.isKinematic = true; // Garante que é kinematic(forças não afetam a porta, só se mexe com código)
+        body.isKinematic = true; // Garante que é kinematic(forças não afetam a porta, só se mexe com código)
         body.interpolation = RigidbodyInterpolation.Interpolate; // garante que faz interpolate(suaviza o movimento com
                                                                  // cálculos de posições anteriores
 

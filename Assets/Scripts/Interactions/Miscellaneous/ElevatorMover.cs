@@ -6,7 +6,7 @@ public class ElevatorMover : MonoBehaviour, IInteractable
 {
     [SerializeField] private Vector3 moveOffset = new Vector3(0f, -3f, 0f);
     [SerializeField][Range(1f,3f)] private float speed = 3f;
-    [SerializeField] private string prompt = "Go to next level";
+    [SerializeField] private string prompt = "Ir para o proximo nivel";
     private Rigidbody rb;
     private Animator anim;
     private Transform parentTransform;
@@ -34,7 +34,7 @@ public class ElevatorMover : MonoBehaviour, IInteractable
         yield return new WaitForSeconds(2f);
         Vector3 current = rb.position;
         Vector3 next = Vector3.MoveTowards(current, current+moveOffset, speed * Time.fixedDeltaTime);
-
+        
         parentTransform.position = rb.position;
         rb.MovePosition(next);
         Physics.SyncTransforms();
