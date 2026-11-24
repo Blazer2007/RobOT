@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Door : MonoBehaviour, IResetlable
@@ -34,26 +32,9 @@ public class Door : MonoBehaviour, IResetlable
                                              // o valor da posição inicial da mesma
 
         openPosition = closedPosition + transform.rotation * openOffset; // Armazena a posição da porta aberta como
-                                         // a soma da posição da porta fechada + o offset da porta 
+                                                                         // a soma da posição da porta fechada + o offset da porta 
 
-        var list = new List<IRequirement>(); // Cria uma lista de requisitos
-        // cria uma variavel source por cada requisito
-        foreach (var source in requirementSources)
-        {
-            // Guarda nesta variável as interfaces dos requisitos
-            IRequirement requirement = source != null ? source.GetComponent<IRequirement>() : null;
-            if (requirement == null) // caso algum não tenha essa interface avisa respetivamente
-            {
-                Debug.LogError($"{name}: um ou mais requisitos estão vazios ou não têm IRequirement.", this);
-                continue; // Continua o ciclo(passa para o próximo requisito)
-            }
-            list.Add(requirement); // Adiciona todos os requisitos que têm o IRequirement
-        }
-
-        if (list.Count == 0) // Se a lista for igual a 0
-            Debug.LogWarning($"{name}: sem requisitos válidos.", this); //Avisa respetivamente
-
-        group = new RequirementGroup(list, mode); // Cria uma nova classe RequirementGroup e guarda-a na variavel group
+        group = RequirementGroupFactory.Create(requirementSources, mode, this);
     }
 
     private void OnEnable() // Enquanto o objeto está ativo
@@ -96,8 +77,6 @@ public class Door : MonoBehaviour, IResetlable
     {
         if (open == shouldBeOpen) return; // Se o parametro passado for igual ao shouldBeOpen não faz nada
         shouldBeOpen = open; // caso contrário o valor do shouldBeOpen passa a ser o valor do parametro
-        if(TryGetComponent<Animator>(out Animator animator))
-            animator.SetBool("IsOpen", open);
         OpenStateChanged?.Invoke(open); // Indica a mudança da abertura da porta
     }
 
