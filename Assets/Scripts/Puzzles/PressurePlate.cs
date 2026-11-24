@@ -2,18 +2,37 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PressurePlate : MonoBehaviour, IActivationSource
+/// <summary>
+/// Placa de pressão por peso. Soma a massa (Rigidbody.mass) de tudo o que está em cima e
+/// ativa quando o total chega a requiredMass. Exemplo com requiredMass = 2:
+///   Rob (1)             -> inativa
+///   Rob + O.T (1 + 1)   -> ativa
+///   Rob + caixa leve    -> ativa (se a caixa pesar >= 1)
+/// A massa das caixas vem do ObjectMaterial (densidade x volume), por isso o tamanho e o
+/// material da caixa decidem se chega. Uma caixa agarrada pelo braço levita e não pesa.
+/// </summary>
+public class PressurePlate : MonoBehaviour, IActivationSource, IResetlable
 {
+    private const float Tolerance = 0.0001f;
+
     [SerializeField] private LayerMask activators = ~0;
+    [SerializeField][Range(0.5f,10f)] private float requiredMass = 1f; // massa total mínima para ativar
+
     private Animator animator;
 
+    // Rigidbody -> número de colliders desse corpo dentro da placa
     private readonly Dictionary<Rigidbody, int> occupants = new Dictionary<Rigidbody, int>();
+    private readonly List<Rigidbody> stale = new List<Rigidbody>();
 
     public bool IsActive { get; private set; }
+    public float CurrentMass { get; private set; }
+    public float RequiredMass => requiredMass;
+
     public event Action<bool> ActivationChanged;
+
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        TryGetComponent(out animator);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,23 +53,47 @@ public class PressurePlate : MonoBehaviour, IActivationSource
         else occupants[rb] = count - 1;
         Refresh();
     }
-    public void ResetState()
-    {
-        var stale = new List<Rigidbody>();
-        foreach (var rb in occupants.Keys)
-            if (rb == null || !rb.gameObject.activeInHierarchy) stale.Add(rb);
 
-        foreach (var rb in stale) occupants.Remove(rb);
-        Refresh();
-    }
+    // Recalcula sempre: apanhar/largar uma caixa com o braço ou esconder um objeto
+    // não geram eventos de trigger.
+    private void FixedUpdate() => Refresh();
+
+    public void ResetState() => Refresh();
+
     private void Refresh()
     {
-        bool active = occupants.Count > 0;
+        CurrentMass = ComputeMass();
+
+        bool active = occupants.Count > 0 && CurrentMass >= requiredMass - Tolerance;
         if (active == IsActive) return;
+
         IsActive = active;
         ActivationChanged?.Invoke(active);
-        UpdateAnim(IsActive);
+        if (animator != null) animator.SetBool("Activated", active);
     }
-    private void UpdateAnim(bool active) => animator.SetBool("Activated", active);
 
+    private float ComputeMass()
+    {
+        stale.Clear();
+        float total = 0f;
+
+        foreach (KeyValuePair<Rigidbody, int> pair in occupants)
+        {
+            Rigidbody rb = pair.Key;
+
+            if (rb == null || !rb.gameObject.activeInHierarchy)
+            {
+                stale.Add(rb);
+                continue;
+            }
+
+            // Caixa agarrada pelo braço: está a levitar, não pesa na placa
+            if (rb.TryGetComponent(out MaterialObject box) && box.IsGrabbed) continue;
+
+            total += rb.mass;
+        }
+
+        foreach (Rigidbody rb in stale) occupants.Remove(rb);
+        return total;
+    }
 }
