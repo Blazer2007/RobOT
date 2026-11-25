@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
-public class PlayerMover : MonoBehaviour, IResetlable
+public class PlayerMover : MonoBehaviour, IResetlable, IGroundedState
 {
     [SerializeField] private MovementData data; // SO
     [SerializeField] private MonoBehaviour cameraViewSource;

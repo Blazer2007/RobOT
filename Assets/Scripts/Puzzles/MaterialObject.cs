@@ -18,7 +18,7 @@ public class MaterialObject : MonoBehaviour, IResetlable
     private const float MinMass = 0.01f;
 
     [SerializeField] private ObjectMaterial material;
-    [SerializeField] private float fallLimitY = -20f; // abaixo disto volta ao sítio original
+    [SerializeField] private Vector3 fallLimitY = new Vector3(0,-20,0); // abaixo disto volta ao sítio original
 
     private Vector3 initialPosition;
     private Quaternion initialRotation;
@@ -38,6 +38,7 @@ public class MaterialObject : MonoBehaviour, IResetlable
         initialRotation = transform.rotation;
         originalConstraints = Body.constraints;
 
+
         if (material == null)
         {
             Debug.LogWarning($"{name}: sem ObjectMaterial, mantém a massa do Rigidbody.", this);
@@ -51,7 +52,7 @@ public class MaterialObject : MonoBehaviour, IResetlable
 
     private void FixedUpdate()
     {
-        if (transform.position.y < fallLimitY) ReturnToOrigin();
+        if (transform.position.y < initialPosition.y + fallLimitY.y) ReturnToOrigin();
     }
 
     public void SetGrabbed(bool grabbed)

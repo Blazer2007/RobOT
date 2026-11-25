@@ -5,11 +5,11 @@ using UnityEngine;
 /// próprio ModulePickup (implementa IModuleInfo) e o reset sabe sempre qual é o original.
 /// O Collider tem de estar neste mesmo GameObject (o PlayerInteractor procura aqui).
 /// </summary>
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class ModulePickup : MonoBehaviour, IInteractable, IModuleInfo, IResetlable
 {
     [SerializeField] private ModuleData data;
-    [SerializeField] private float fallLimitY = -20f; // abaixo disto volta ao sítio original
+    [SerializeField] private Vector3 fallLimitY = new Vector3(0, -20, 0); // abaixo disto volta ao sítio original
 
     private Rigidbody body;
     private Vector3 initialPosition;
@@ -43,7 +43,7 @@ public class ModulePickup : MonoBehaviour, IInteractable, IModuleInfo, IResetlab
 
     private void FixedUpdate()
     {
-        if (!IsHeld && transform.position.y < fallLimitY)
+        if (!IsHeld && transform.position.y < initialPosition.y + fallLimitY.y)
             ReturnToOrigin();
     }
 

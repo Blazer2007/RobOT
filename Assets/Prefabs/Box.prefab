@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f3297c71ddc3b764c911bf1bbc38aa24, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 34.300034
+      value: 11.521553
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f3297c71ddc3b764c911bf1bbc38aa24, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 22.664312
+      value: -20.472332
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f3297c71ddc3b764c911bf1bbc38aa24, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -27.07
+      value: 55.667816
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f3297c71ddc3b764c911bf1bbc38aa24, type: 3}
       propertyPath: m_LocalRotation.w
@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8391222552659086748, guid: f3297c71ddc3b764c911bf1bbc38aa24, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: -5477749408508380018, guid: f3297c71ddc3b764c911bf1bbc38aa24, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
@@ -67,6 +71,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f3297c71ddc3b764c911bf1bbc38aa24, type: 3}
       propertyPath: m_Name
       value: Box
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f3297c71ddc3b764c911bf1bbc38aa24, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -152,6 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 906b553599a759342ae7b663e2b7679d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MagneticObject
+  material: {fileID: 11400000, guid: 74523b4e37e18cf4691c6ad2586e6e0b, type: 2}
   fallLimitY: -20
 --- !u!114 &8245864449887024868
 MonoBehaviour:

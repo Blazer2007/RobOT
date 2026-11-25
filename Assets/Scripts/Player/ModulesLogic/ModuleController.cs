@@ -58,6 +58,7 @@ public class ModuleController : MonoBehaviour
 
         HandleSelectionInput();
         HandleUseInput();
+        HandleAirJumpInput();
         HandleDropInput();
     }
 
@@ -101,6 +102,19 @@ public class ModuleController : MonoBehaviour
         if (Input.GetKeyDown(slot1Key)) Inventory.Select(0);
         if (Input.GetKeyDown(slot2Key)) Inventory.Select(1);
         if (Input.mouseScrollDelta.y != 0f) Inventory.CycleSelection();
+    }
+
+    // Módulo extra com ativação AirJump (propulsor): usa-se ao carregar no salto.
+    // Se a personagem ainda está no chão, a própria habilidade recusa (CanUse = false).
+    private void HandleAirJumpInput()
+    {
+        if (!Input.GetButtonDown("Jump")) return;
+
+        IModuleInfo extra = Inventory.Extra;
+        if (extra is not ModulePickup pickup || pickup.Data.Activation != ModuleActivation.AirJump) return;
+
+        if (abilities.TryGetValue(extra, out IRobotAbility ability) && ability.CanUse(context))
+            ability.Use(context);
     }
 
     private void HandleUseInput()

@@ -10,7 +10,7 @@ public class ElevatorButton : MonoBehaviour, IInteractable
     [SerializeField] private string normalPrompt = "Ir para o próximo nível";
     [SerializeField] private string missingCharactersPrompt = "Falta um personagem";
     [SerializeField] private CheckPlayerCount pChecker;
-    public string Prompt => allInside? normalPrompt : missingCharactersPrompt;
+    public string Prompt => allInside ? normalPrompt : missingCharactersPrompt;
     
     private bool allInside;
     void Awake() 
