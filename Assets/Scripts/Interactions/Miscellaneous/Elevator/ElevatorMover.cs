@@ -33,6 +33,7 @@ public class ElevatorMover : MonoBehaviour, IMovingSurface, IActivationSource, I
 
     private void Awake()
     {
+        
         body = GetComponent<Rigidbody>();
         body.isKinematic = true;
         body.interpolation = RigidbodyInterpolation.Interpolate;
