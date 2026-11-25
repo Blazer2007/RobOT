@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MagneticArm
   m_EditorClassIdentifier: RobOT.Modules::ModuleData
   <ModuleName>k__BackingField: "M\xF3dulo"
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 820b71ec0157f5d4288f39d2893b8b24, type: 3}
   <SlotType>k__BackingField: 0
   <Activation>k__BackingField: 0
   <Range>k__BackingField: 3

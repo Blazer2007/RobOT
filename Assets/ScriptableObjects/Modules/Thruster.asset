@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Thruster
   m_EditorClassIdentifier: RobOT.Modules::ModuleData
   <ModuleName>k__BackingField: "M\xF3dulo"
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: ebb0ad55b5527724683f6b4d26f4b967, type: 3}
   <SlotType>k__BackingField: 1
   <Activation>k__BackingField: 1
   <Range>k__BackingField: 5
