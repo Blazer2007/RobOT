@@ -8,7 +8,7 @@ using UnityEngine;
 public class TrapdoorMover : MonoBehaviour, IResetlable
 {
     [SerializeField] private TrapdoorDetector trapdoorDetector;
-    //[SerializeField] private TrapdoorOpener trapdoorOpener;
+    [SerializeField] private TrapdoorOpener trapdoorOpener;
     [SerializeField] private Vector3 shutOffset = new Vector3(0,-3,0);
     [SerializeField][Range(0.5f, 6f)] private float speed = 2f;
     private Rigidbody rb;
@@ -31,13 +31,13 @@ public class TrapdoorMover : MonoBehaviour, IResetlable
 
     private void OnEnable()
     {
-        //trapdoorOpener.OnPuzzleComplete += OpenTrapDoor;
+        trapdoorOpener.OnPuzzleComplete += OpenTrapDoor;
         trapdoorDetector.OnRequiredCharactersTrapped += ShutTrapDoor;
     }
     private void OnDisable()
     {
-        //trapdoorOpener.OnPuzzleComplete -= OpenTrapDoor;
         trapdoorDetector.OnRequiredCharactersTrapped -= ShutTrapDoor;
+        trapdoorOpener.OnPuzzleComplete -= OpenTrapDoor;
     }
     /// <summary>
     /// Fecha a trapdoor quando todos os jogadores estão dentro da área respetiva
@@ -48,12 +48,15 @@ public class TrapdoorMover : MonoBehaviour, IResetlable
         if (transform.position == shutPosition)
             OnTrapdoorShut?.Invoke();
     }
-    //private void OpenTrapDoor()
-    //{
-    //    allCharactersInside = true;
-    //    if (transform.position == shutPosition)
-    //        OnTrapdoorShut?.Invoke();
-    //}
+    /// <summary>
+    /// Abre a trapdoor quando o puzzle é considerado completo
+    /// </summary>
+    /// <param name="open"></param>
+    private void OpenTrapDoor(bool open)
+    {
+        allCharactersInside = false;
+        shouldBeShut = !open;
+    }
     private void FixedUpdate()
     {
         Vector3 target = shouldBeShut ? shutPosition : openPosition;

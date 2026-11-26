@@ -18,7 +18,7 @@ public class Door : MonoBehaviour, IResetlable
     public bool IsOpen => shouldBeOpen; // A condição da porta estar aberta depende da condição da porta poder estar aberta
     // Esta função pega no valor de "shouldBeOpen" e atribui-o a "IsOpen"
 
-
+    
     public event Action<bool> OpenStateChanged; // Indicação da mudança de estado da porta(aberta/fechada)
 
     private void Awake()
