@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class CheckPlayerCount : MonoBehaviour
 {
-    [SerializeField] private int totalPlayers = 2;
-    private List<GameObject> playersInside = new List<GameObject>();
+    [SerializeField] private int totalCharacters = 2;
+    private List<GameObject> charactersInside = new List<GameObject>();
     [HideInInspector] public bool areAllCharactersInside = false;
-    public event Action<bool> AllCharactersInside;
+    public event Action<bool> OnAllCharactersInside;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Rob") || other.CompareTag("OT"))
         {
-            if (!playersInside.Contains(other.gameObject))
+            if (!charactersInside.Contains(other.gameObject))
             {
-                playersInside.Add(other.gameObject);
+                charactersInside.Add(other.gameObject);
             }
 
-            CheckPlayers();
+            CheckCharacters();
         }
     }
 
@@ -26,15 +26,15 @@ public class CheckPlayerCount : MonoBehaviour
     {
         if (other.CompareTag("Rob") || other.CompareTag("OT"))
         {
-            playersInside.Remove(other.gameObject);
+            charactersInside.Remove(other.gameObject);
 
-            CheckPlayers();
+            CheckCharacters();
         }
     }
 
-    private void CheckPlayers()
+    private void CheckCharacters()
     {
-        areAllCharactersInside = playersInside.Count >= totalPlayers;
-        AllCharactersInside?.Invoke(areAllCharactersInside);
+        areAllCharactersInside = charactersInside.Count >= totalCharacters;
+        OnAllCharactersInside?.Invoke(areAllCharactersInside);
     }
 }

@@ -9,22 +9,22 @@ public class ElevatorButton : MonoBehaviour, IInteractable
     [SerializeField] private ElevatorMover elevator;
     [SerializeField] private string normalPrompt = "Ir para o próximo nível";
     [SerializeField] private string missingCharactersPrompt = "Falta um personagem";
-    [SerializeField] private CheckPlayerCount pChecker;
+    [SerializeField] private CheckPlayerCount characterChecker;
     public string Prompt => allInside ? normalPrompt : missingCharactersPrompt;
     
     private bool allInside;
     void Awake() 
     {
-        if (!pChecker)
+        if (!characterChecker)
             Debug.Log("Verificador de jogadores em falta");
     }
     private void OnEnable()
     {
-        pChecker.AllCharactersInside += AllCharactersInside;
+        characterChecker.OnAllCharactersInside += AllCharactersInside;
     }
     private void OnDisable()
     {
-        pChecker.AllCharactersInside -= AllCharactersInside;
+        characterChecker.OnAllCharactersInside -= AllCharactersInside;
     }
     private void AllCharactersInside(bool allCharInside) 
     {

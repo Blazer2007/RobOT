@@ -19,5 +19,5 @@ MonoBehaviour:
   <Range>k__BackingField: 5
   <Force>k__BackingField: 8
   <Cooldown>k__BackingField: 0
-  <MaxMass>k__BackingField: 0
-  <AbilityPrefab>k__BackingField: {fileID: 0}
+  <MaxMass>k__BackingField: 1
+  <AbilityPrefab>k__BackingField: {fileID: 7570432970597716094, guid: 65a45dcd7d45c6d408698f4e778010f7, type: 3}
