@@ -6,7 +6,7 @@ using UnityEngine;
 /// Só conhece IModuleInfo e IRobotAbility: não sabe que módulos existem.
 /// </summary>
 
-public class ModuleController : MonoBehaviour
+public class ModuleController : MonoBehaviour, IAirJump
 {
     [SerializeField] private Camera aimCamera;          // vazio = Camera.main
     [SerializeField] private Transform abilityRoot;     // pai das habilidades instanciadas; vazio = este objeto
@@ -74,6 +74,26 @@ public class ModuleController : MonoBehaviour
         if (ability is ITargetFeedback feedback) return feedback.GetTargetState(context);
 
         return ability.CanUse(context) ? AbilityTargetState.Available : AbilityTargetState.None;
+    }
+
+    // ---------- Salto no ar (IAirJump), pedido pelo PlayerMover ----------
+    // Usa a habilidade do módulo EXTRA se for ativada por salto no ar (ex.: propulsor).
+
+    public bool CanAirJump =>
+        isActiveAndEnabled && TryGetAirJumpAbility(out IRobotAbility ability) && ability.CanUse(context);
+
+    public void AirJump()
+    {
+        if (TryGetAirJumpAbility(out IRobotAbility ability) && ability.CanUse(context))
+            ability.Use(context);
+    }
+
+    private bool TryGetAirJumpAbility(out IRobotAbility ability)
+    {
+        ability = null;
+        return Inventory.Extra is ModulePickup pickup
+            && pickup.Data.Activation == ModuleActivation.AirJump
+            && abilities.TryGetValue(pickup, out ability);
     }
 
     // Chamado pelo ModulePickup quando o jogador carrega em E

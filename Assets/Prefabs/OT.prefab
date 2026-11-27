@@ -105,6 +105,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b851cc80e6a385419a8b17d625bae45, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5813720946182736401}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b851cc80e6a385419a8b17d625bae45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2947361058823749120}
   m_SourcePrefab: {fileID: 100100000, guid: 3b851cc80e6a385419a8b17d625bae45, type: 3}
 --- !u!1 &6597422080298658342 stripped
 GameObject:
@@ -340,10 +343,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OTSounds
   wakeUpClip: {fileID: 8300000, guid: 2b25b6e2c561dad48835dc88c2ecbe9d, type: 3}
-  walkClip: {fileID: 8300000, guid: befe52637b5e4b4429b7fee496b0ed85, type: 3}
   wakeUpVolume: 1
-  walkVolume: 0.155
-  walkFadeTime: 0.15
-  minWalkSpeed: 0.3
   spatialBlend: 1
   maxDistance: 10
+--- !u!114 &2947361058823749120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6597422080298658342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11b11cba900f4172bd3da5ed0975db47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WalkingLoopSound
+  clip: {fileID: 8300000, guid: befe52637b5e4b4429b7fee496b0ed85, type: 3}
+  volume: 0.6
+  fadeTime: 0.15
+  minSpeed: 0.3
+  pitchRange: {x: 0.92, y: 1.08}
+  referenceSpeed: 4
+  speedPitchAmount: 0.15
+  spatialBlend: 1
+  maxDistance: 25

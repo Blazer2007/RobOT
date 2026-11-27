@@ -17,6 +17,7 @@ public class PlayerMover : MonoBehaviour, IResetlable
     private IMoveInput input;
     private ICameraView cameraView;
     private IControllable character; // opcional; sem ele a personagem conta sempre como controlada
+    private IAirJump airJump;        // opcional; salto no ar (propulsor)
 
     public bool IsGrounded { get; private set; }
 
@@ -30,6 +31,7 @@ public class PlayerMover : MonoBehaviour, IResetlable
         bodyCollider = GetComponent<Collider>();
         input = inputSource != null ? inputSource as IMoveInput : GetComponent<IMoveInput>();
         character = GetComponent<IControllable>();
+        airJump = GetComponent<IAirJump>();
         cameraView = cameraViewSource != null ? cameraViewSource.GetComponent<ICameraView>() : null;
 
         if (data == null || input == null || cameraView == null)
@@ -102,7 +104,14 @@ public class PlayerMover : MonoBehaviour, IResetlable
 
     private void TryJump()
     {
-        if (!IsGrounded || !input.ConsumeJump()) return;
+        if (!IsGrounded)
+        {
+            // No ar: só gasta o salto se houver salto no ar disponível (senão fica no buffer para quando aterrar)
+            if (airJump != null && airJump.CanAirJump && input.ConsumeJump()) airJump.AirJump();
+            return;
+        }
+
+        if (!input.ConsumeJump()) return;
 
         float jumpSpeed = Mathf.Sqrt(2f * -Physics.gravity.y * data.JumpHeight);
         Vector3 velocity = body.linearVelocity;

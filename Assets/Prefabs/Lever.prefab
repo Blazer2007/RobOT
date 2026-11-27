@@ -76,6 +76,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a9baaa9f4377b644c9339dfde173df84, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4320420070190018835}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a9baaa9f4377b644c9339dfde173df84, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5104938271650382947}
   m_SourcePrefab: {fileID: 100100000, guid: a9baaa9f4377b644c9339dfde173df84, type: 3}
 --- !u!1 &3109384934355508881 stripped
 GameObject:
@@ -181,3 +184,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64380c54e02f1fb48b9f59a829ed9605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleResetTarget
+--- !u!114 &5104938271650382947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3109384934355508881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24dbcd7727524d26a260800a09dd79ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActivationSound
+  sourceBehaviour: {fileID: 0}
+  activatedClip: {fileID: 8300000, guid: a167bd43006bf954aa1a1adb0e4e4096, type: 3}
+  deactivatedClip: {fileID: 8300000, guid: a167bd43006bf954aa1a1adb0e4e4096, type: 3}
+  volume: 1
+  spatialBlend: 1
+  maxDistance: 20

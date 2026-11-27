@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 7758851093334456579}
   - component: {fileID: 3359037004842671658}
   - component: {fileID: 4085585341488494588}
+  - component: {fileID: 6620394817752043188}
   m_Layer: 0
   m_Name: Pressureplate
   m_TagString: Untagged
@@ -398,3 +399,21 @@ Transform:
   - {fileID: 2770697917594312048}
   m_Father: {fileID: 4850637873872238793}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6620394817752043188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5682541247109217425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24dbcd7727524d26a260800a09dd79ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActivationSound
+  sourceBehaviour: {fileID: 0}
+  activatedClip: {fileID: 8300000, guid: 67150a7cee3f4f7f820e57eec4690185, type: 3}
+  deactivatedClip: {fileID: 8300000, guid: bbb7060effdf487f9037b366ffaa0cb9, type: 3}
+  volume: 1
+  spatialBlend: 1
+  maxDistance: 20

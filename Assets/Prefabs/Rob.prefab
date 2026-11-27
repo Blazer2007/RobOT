@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 294644732586769198}
   - component: {fileID: 8255978087100702500}
   - component: {fileID: 259822283970189312}
+  - component: {fileID: 7311852046190366201}
   m_Layer: 7
   m_Name: Rob
   m_TagString: Player
@@ -330,3 +331,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2356258777433797231}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7311852046190366201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532931502435102370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11b11cba900f4172bd3da5ed0975db47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WalkingLoopSound
+  clip: {fileID: 8300000, guid: 6b1ff97eeb4f08d4e993fecee4163281, type: 3}
+  volume: 0.6
+  fadeTime: 0.15
+  minSpeed: 0.3
+  pitchRange: {x: 0.92, y: 1.08}
+  referenceSpeed: 4
+  speedPitchAmount: 0.15
+  spatialBlend: 1
+  maxDistance: 25
