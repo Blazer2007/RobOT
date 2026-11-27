@@ -2,28 +2,38 @@ using System;
 using UnityEngine;
 
 /// <summary>
-/// Fecha/Abre a porta dependendo do cumprimento dos requisitos referidos no TrapdoorDetector
+/// Move a trapdoor: fecha quando as personagens necessárias estão aprisionadas
+/// e abre quando o puzzle é completado.
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class TrapdoorMover : MonoBehaviour, IResetlable
 {
-    [SerializeField] private TrapdoorDetector trapdoorDetector;
+    [SerializeField] private TrapdoorDetector trapdoorDetector; // Filho com o trigger
     [SerializeField] private TrapdoorOpener trapdoorOpener;
-    [SerializeField] private Vector3 shutOffset = new Vector3(0,-3,0);
+    [SerializeField] private Vector3 shutOffset = new Vector3(0, -3, 0);
     [SerializeField][Range(0.5f, 6f)] private float speed = 2f;
+
     private Rigidbody rb;
     private Vector3 openPosition;
     private Vector3 shutPosition;
-    private bool shouldBeShut;
-    private bool allCharactersInside = false;
+
+    private bool charactersTrapped;   // Jogadores já ficaram aprisionados
+    private bool puzzleComplete;      // Requisitos do puzzle cumpridos
+    private bool shutNotified;        // Evita emitir OnTrapdoorShut várias vezes
+
+    // Fecha apenas se estão aprisionados E o puzzle ainda não está completo
+    private bool ShouldBeShut => charactersTrapped && !puzzleComplete;
+
     public event Action OnTrapdoorShut;
 
     private void Awake()
     {
-        if (trapdoorDetector == null)
-            trapdoorDetector = GetComponent<TrapdoorDetector>();
+        if (trapdoorDetector == null) trapdoorDetector = GetComponentInChildren<TrapdoorDetector>();
+        if (trapdoorOpener == null) trapdoorOpener = GetComponent<TrapdoorOpener>();
 
         rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
 
         openPosition = transform.position;
         shutPosition = openPosition + shutOffset;
@@ -31,47 +41,61 @@ public class TrapdoorMover : MonoBehaviour, IResetlable
 
     private void OnEnable()
     {
-        trapdoorOpener.OnPuzzleComplete += OpenTrapDoor;
-        trapdoorDetector.OnRequiredCharactersTrapped += ShutTrapDoor;
+        if (trapdoorOpener != null) trapdoorOpener.OnPuzzleComplete += OnPuzzleChanged;
+        if (trapdoorDetector != null) trapdoorDetector.OnRequiredCharactersTrapped += OnTrapped;
     }
+
     private void OnDisable()
     {
-        trapdoorDetector.OnRequiredCharactersTrapped -= ShutTrapDoor;
-        trapdoorOpener.OnPuzzleComplete -= OpenTrapDoor;
+        if (trapdoorOpener != null) trapdoorOpener.OnPuzzleComplete -= OnPuzzleChanged;
+        if (trapdoorDetector != null) trapdoorDetector.OnRequiredCharactersTrapped -= OnTrapped;
     }
-    /// <summary>
-    /// Fecha a trapdoor quando todos os jogadores estão dentro da área respetiva
-    /// </summary>
-    private void ShutTrapDoor() 
+
+    // Start corre depois de todos os Awake/OnEnable, por isso o opener já está pronto
+    private void Start()
     {
-        allCharactersInside = true;
-        if (transform.position == shutPosition)
-            OnTrapdoorShut?.Invoke();
+        puzzleComplete = trapdoorOpener != null && trapdoorOpener.IsComplete;
     }
-    /// <summary>
-    /// Abre a trapdoor quando o puzzle é considerado completo
-    /// </summary>
-    /// <param name="open"></param>
-    private void OpenTrapDoor(bool open)
+
+    private void OnTrapped()
     {
-        allCharactersInside = false;
-        shouldBeShut = !open;
+        charactersTrapped = true;
     }
+
+    private void OnPuzzleChanged(bool complete)
+    {
+        puzzleComplete = complete;
+        if (complete) charactersTrapped = false; // Ao abrir, limpa o estado de aprisionamento
+    }
+
     private void FixedUpdate()
     {
-        Vector3 target = shouldBeShut ? shutPosition : openPosition;
+        Vector3 target = ShouldBeShut ? shutPosition : openPosition;
 
-        if ((rb.position - target).sqrMagnitude < 0.000001f) return;
+        if ((rb.position - target).sqrMagnitude < 0.000001f)
+        {
+            // Chegou ao destino: avisa só uma vez que fechou
+            if (ShouldBeShut && !shutNotified)
+            {
+                shutNotified = true;
+                OnTrapdoorShut?.Invoke();
+            }
+            return;
+        }
 
+        shutNotified = false;
         rb.MovePosition(Vector3.MoveTowards(rb.position, target, speed * Time.fixedDeltaTime));
     }
+
     public void ResetState()
     {
-        shouldBeShut = allCharactersInside;
-        Vector3 position = shouldBeShut ? shutPosition : openPosition; 
+        // Os jogadores voltam ao spawn, por isso já não estão aprisionados
+        charactersTrapped = false;
+        puzzleComplete = trapdoorOpener != null && trapdoorOpener.IsComplete; // Pergunta aos requisitos, não assume
+        shutNotified = false;
 
-        transform.position = position; 
-        rb.position = position; 
+        transform.position = openPosition;
+        rb.position = openPosition;
         Physics.SyncTransforms();
     }
 }

@@ -2,38 +2,36 @@
 using UnityEngine;
 
 /// <summary>
-/// Abre a trapdoor quando os requisitos do puzzle são cumpridos
+/// Avalia os requisitos do puzzle e avisa a trapdoor quando ficam cumpridos (ou deixam de estar).
 /// </summary>
 public class TrapdoorOpener : MonoBehaviour
 {
-    [SerializeField] private MonoBehaviour[] requirementSources; // Requisitos
-    [SerializeField] private GroupMode mode = GroupMode.All; // Modo de verificação dos requisitos 
+    [SerializeField] private MonoBehaviour[] requirementSources; // Requisitos (IRequirement)
+    [SerializeField] private GroupMode mode = GroupMode.All;     // All = todos | Any = pelo menos um
 
-    private RequirementGroup group; // Referencia à classe que trata dos grupos de requisitos
+    private RequirementGroup group;
+
     public event Action<bool> OnPuzzleComplete;
+
+    // Permite à trapdoor perguntar o estado atual (início do jogo e reset)
+    public bool IsComplete => group != null && group.IsMet;
 
     private void Awake()
     {
         group = RequirementGroupFactory.Create(requirementSources, mode, this);
     }
 
-    private void OnEnable() // Enquanto o objeto está ativo
+    private void OnEnable()
     {
-        group.StartListening(); // Fica à escuta de mudanças nos requisitos
-        group.Changed += OnRequirementsChanged; // Subscrever-se às mudanças dos requisitos
+        group.StartListening();
+        group.Changed += OnRequirementsChanged;
     }
+
     private void OnDisable()
     {
         group.Changed -= OnRequirementsChanged;
         group.StopListening();
     }
 
-    private void OnRequirementsChanged()
-    {
-        SetOpen(group.IsMet); // Se todos os requitos forem cumpridos abre-se e a porta, caso contrário não
-    }
-    private void SetOpen(bool open)
-    {
-        OnPuzzleComplete?.Invoke(open); // Indica que a trapdoor deve abrir quando todos os requisitos forem cumpridos
-    }
+    private void OnRequirementsChanged() => OnPuzzleComplete?.Invoke(group.IsMet);
 }
