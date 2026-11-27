@@ -342,8 +342,8 @@ MonoBehaviour:
   wakeUpClip: {fileID: 8300000, guid: 2b25b6e2c561dad48835dc88c2ecbe9d, type: 3}
   walkClip: {fileID: 8300000, guid: befe52637b5e4b4429b7fee496b0ed85, type: 3}
   wakeUpVolume: 1
-  walkVolume: 0.6
+  walkVolume: 0.155
   walkFadeTime: 0.15
   minWalkSpeed: 0.3
   spatialBlend: 1
-  maxDistance: 25
+  maxDistance: 10
