@@ -1,4 +1,3 @@
-// ModuleInventory.cs
 using System;
 
 // Resultado de tentar apanhar um módulo.
@@ -47,6 +46,19 @@ public class ModuleInventory
         if (Extra == module) return true;
         for (int i = 0; i < MainSlotCount; i++)
             if (mainSlots[i] == module) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// Há algum módulo (em qualquer slot) que cumpra a condição? Usado por requisitos de portas,
+    /// que procuram "o módulo X" sem o inventário saber o que é um ModuleData.
+    /// </summary>
+    public bool Contains(Func<IModuleInfo, bool> match)
+    {
+        if (match == null) return false;
+        if (Extra != null && match(Extra)) return true;
+        for (int i = 0; i < MainSlotCount; i++)
+            if (mainSlots[i] != null && match(mainSlots[i])) return true;
         return false;
     }
 

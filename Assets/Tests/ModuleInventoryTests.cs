@@ -1,4 +1,3 @@
-// ModuleInventoryTests.cs
 using System.Collections.Generic;
 using NUnit.Framework;
 
@@ -227,5 +226,41 @@ public class ModuleInventoryTests
         Assert.IsTrue(inventory.Has(thruster));
         Assert.IsFalse(inventory.Has(shield));
         Assert.IsFalse(inventory.Has(null));
+    }
+
+    // --- Procura por condição (usada pelo ModuleRequirement) ---
+
+    [Test]
+    public void Contains_FindsModuleByCondition()
+    {
+        inventory.TryPickup(arm);
+        inventory.TryPickup(thruster);
+
+        Assert.IsTrue(inventory.Contains(m => m.ModuleName == "Propulsor"));
+        Assert.IsTrue(inventory.Contains(m => m.SlotType == ModuleSlotType.Extra));
+        Assert.IsFalse(inventory.Contains(m => m.ModuleName == "Escudo"));
+    }
+
+    [Test]
+    public void Contains_EmptyInventory_ReturnsFalse()
+    {
+        Assert.IsFalse(inventory.Contains(m => true));
+    }
+
+    [Test]
+    public void Contains_AfterDrop_NoLongerFindsModule()
+    {
+        inventory.TryPickup(arm);
+        inventory.DropSelectedMain();
+
+        Assert.IsFalse(inventory.Contains(m => m.ModuleName == "Braço"));
+    }
+
+    [Test]
+    public void Contains_NullCondition_ReturnsFalse()
+    {
+        inventory.TryPickup(arm);
+
+        Assert.IsFalse(inventory.Contains(null));
     }
 }
