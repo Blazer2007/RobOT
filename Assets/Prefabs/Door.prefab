@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4181713324924305690}
   - component: {fileID: 795120424055305286}
   - component: {fileID: 7239687525543542198}
+  - component: {fileID: 486739921876707570}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -31,11 +32,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604261745895563074}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 2.6489701, y: -2.8600001, z: 18.829079}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 4, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5791063197361520202}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &2869914093766458462
@@ -157,6 +159,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Door
   requirementSources:
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 486739921876707570}
   mode: 0
   stayOpen: 1
   openOffset: {x: 0, y: 3, z: 0}
@@ -185,3 +191,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64380c54e02f1fb48b9f59a829ed9605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleResetTarget
+--- !u!114 &486739921876707570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604261745895563074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df893008114f3de4293c04428f37e089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ModuleRequirement
+  requiredModule: {fileID: 11400000, guid: 2c633bacbbc0f3d46b2a90ab86a510d7, type: 2}
+  controllers:
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!1 &6356004704315046896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5791063197361520202}
+  m_Layer: 0
+  m_Name: ModuleRequired
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5791063197361520202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6356004704315046896}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8208070465861301327}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
